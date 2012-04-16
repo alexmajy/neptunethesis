@@ -1,0 +1,65 @@
+% -*-coding: utf-8 -*-
+
+\newcommand{\chinesethesistitle}{西北工业大学硕博士学位论文~\LaTeX~模板} %授权书用，无需断行
+\newcommand{\englishthesistitle}{\LaTeX~Dissertation Template of Northwestern Polytechnical University} %\uppercase作用：将英文标题字母全部大写；
+\newcommand{\chinesethesistime}{2011~年~11~月}  %封面底部的日期中文形式
+\newcommand{\englishthesistime}{November 2011}    %封面底部的日期英文形式
+
+\ctitle{西北工业大学硕博士学位论文\\~\LaTeX~模板}  %封面用论文标题，自己可手动断行
+\cdegree{\cxueke\cxuewei}
+\csubject{计算机科学与技术}                 %(~按二级学科填写~)
+\caffil{西北工业大学} %（在校生填所在系名称，同等学力人员填工作单位）
+\cauthor{某~~某~~某}
+\csupervisor{某~~某~~某~~~~教~~授} %导师名字
+%\cassosupervisor{某~~~~~~某~~~~教~~授}     %(~如无副导师可以不列此项~)
+%\ccosupervisor{某~~某~~某~~~~教~~授~} %(~如无联合培养导师则不列此项~)
+\cdate{\chinesethesistime}
+
+\etitle{\englishthesistitle}
+\edegree{\exuewei \ of \exueke}
+\esubject{Computer Science and  Technology}  %英文二级学科名
+\eaffil{School \hfill of\hfill Computer\hfill Science}%英文单位 %换行用\newline，不要用\\
+\eauthor{Alice}                   %作者姓名 （英文）
+\esupervisor{Prof. Lambda}       % 导师姓名 （英文）
+%\ecosupervisor{Professor X}
+%\eassosupervisor{Professor Y}
+\edate{\englishthesistime}
+
+\natclassifiedindex{TP393}  %国内图书分类号
+\internatclassifiedindex{681.324}  %国际图书分类号
+\statesecrets{公开} %秘密
+
+\iffalse
+\BiAppendixChapter{摘~~~~要}{}  %使用winedt编辑时文档结构图（toc）中为了显示摘要，故增加此句；
+\fi
+\cabstract{
+该模板是以哈尔滨工业大学\LaTeX硕博士学位论文模板为基础(哈工大
+PlutoThesis项目，UTF8版本，svn版本号为r132)，根据西北工业大学学位论文
+规范制作的\LaTeX硕博士论文模板。该模板使用pdflatex在Linux环境下
+(Ubuntu904, textlive 2009)通过编译测试。
+
+模板主要做了以下几方面的修改：
+\begin{itemize}[,leftmargin=4em,itemindent=0em]
+\renewcommand{\labelitemi}{{\large$\bullet$}}
+\item 移除了英文图表和目录，修改了封面的内容和页眉的显示方式，添加了知
+    识产权声明，修改了参考文献的格式。
+    
+\item 做了些小的调整，具体修改请diff r132。
+
+\end{itemize} 
+}
+
+\ckeywords{\LaTeX，论文模板，西北工业大学}
+
+
+\eabstract{
+This is a \LaTeX dissertation template of Northwestern Polytechnical
+University, which is built according to the required format. The
+template is derived from PlutoThesis project.
+}
+
+\ekeywords{\LaTeX, dissertation template, Northwestern Polytechnical
+University}
+
+\makecover
+\clearpage

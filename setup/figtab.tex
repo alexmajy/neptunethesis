@@ -1,0 +1,34 @@
+% -*-coding: utf-8 -*-
+
+%% 中英文插图、表格、算法索引   
+%% 硕博士学位论文规范均不要求这一项，请正式打印的时候在main.tex中屏蔽掉\input{figtab.tex}；
+
+\ifxueweidoctor
+  %\clearpage{\pagestyle{empty}\cleardoublepage}   % 清除目录后面空页的页眉和页脚
+\else%
+  {\ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\else\newpage\fi} % 清除目录后面空页的页眉和页脚
+\fi
+
+\addcontentsline{toc}{chapter}{\hei 插~~~~图}   % 中文插图加入到中文目录
+\listoffigures                                  % 生成中文 图形索引
+
+\ifxueweidoctor
+  %\clearpage{\pagestyle{empty}\cleardoublepage}   % 清除目录后面空页的页眉和页脚
+\else%
+  {\ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\else\newpage\fi}   % 清除目录后面空页的页眉和页脚
+\fi
+
+\addcontentsline{toc}{chapter}{\hei 表~~~~格}   % 中文表格加入到中文目录
+\listoftables                                   % 生成中文 表格索引
+
+
+\ifxueweidoctor
+  %\clearpage{\pagestyle{empty}\cleardoublepage}   % 清除目录后面空页的页眉和页脚
+\else%
+  {\ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\else\newpage\fi}   % 清除目录后面空页的页眉和页脚
+\fi
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End: 

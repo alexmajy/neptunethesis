@@ -1,0 +1,131 @@
+% -*-coding: utf-8 -*-
+
+\def\usewhat{pdflatex}    % 你喜欢哪种编译方式，pdflatex dvipdfmx xelatex yap 
+% 目前texlive2009和miktex2.8（ctex2.8基于miktex2.8）中均提供了ctex中文支持宏包，在使用pdflatex、dvipdfmx和xelatex时，
+% 用户无需再进行中文配置，安装texlive09或miktex2.8后就可编译本模板。
+% 对于windows用户，若使用xelatex编译方式，请根据XP及以前系统，还是Vista及以后系统，在setup/definition.tex文件中选择合适的字体，然后再编译。
+% 由于dvipspdf编译方式相对其他编译方式比较麻烦，并且没有什么优势，texlive09中ctex宏包没有默认提供
+% dvips的中文支持方式，本模板不再提供dvipspdf编译方式。
+
+%定义xelatex的中间临时变量，若\usewhat为xelatex时，后面执行xelatx的相关选项
+\def\atempxetex{xelatex} %这一项无需改动
+%input "reference\reference.bib" %for winedt users
+\def\version{1.9.4.20100419}         % 该变量仅用于模板文件的版本号控制，新的论文规范从1.9开始；
+	% 自从版本1.9.4.20100419后开始提供基于texlive09，miktex2.8的TeX系统的支持，不再支持早期的tl08和miktex2.7及以前版本。
+	% 请使用tl08和miktex2.7及以前版本的用户使用本模板的1.9.2.10090424版本。
+
+\def \xuewei {Doctor}   % 定义学位 博士
+%\def \xuewei {Master}    % 硕士
+
+\def\oneortwoside{twoside} %定义单双面打印，只对硕士学位论文有效；
+%\def\oneortwoside{oneside} % 硕士单面打印
+
+\def\xueke{Engineering} % 定义学科 工学
+%\def\xueke{Science}      % 理学
+%\def\xueke{Management}   % 管理学
+%\def\xueke{Arts}         % 艺术学
+
+\input{setup/type.tex}    % 硕博类型
+
+%下面的book选项中可以使用 draft 选项，使插入的图形只显示外框，以加快预览速度。
+\documentclass[12pt,a4paper,openany,\oneortwoside]{book}
+%\documentclass[12pt,a4paper,openright,\oneortwoside]{book}
+
+\input{setup/package.tex} % 引用的宏包
+
+% 论文包含的内容
+% FIXME: I don't know why I have to put Resume last :( Anyway, the
+% order here does not seem matter.
+%\includeonly{
+                %body/introduction,
+                %body/conclusion
+                %appendix/publications,
+                %appendix/acknowledgements,
+                %appendix/Authorization,
+                %appendix/Resume
+            %}
+\graphicspath{{figures/}} %定义所有的eps文件在 figures 子目录下
+
+\begin{document}
+\ifx\atempxetex\usewhat\else
+\begin{CJK*}{UTF8}{song}
+\fi
+
+\input{setup/Definition} % 文本格式定义
+\input{setup/format}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 正文部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+\sloppy % 解决中英文混排的断行问题，会加入间距，但不会影响断行
+\input{preface/cover} % 封面
+
+%% 中英目录
+\renewcommand{\baselinestretch}{1}
+\fontsize{12pt}{12pt}\selectfont
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\pdfbookmark[0]{目~~~~录}{mulu}
+\tableofcontents    % 中文目录
+\ifxueweidoctor     % 英文目录右开
+  \clearpage{\pagestyle{empty}\cleardoublepage}
+\else%
+  \ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\fi
+\fi
+
+%\input{setup/figtab.tex}  %图表索引, 如果不需要图表索引，注释掉这一句即可；
+% \notation  %主要符号表
+\addtocontents{toc}{\protect\vskip1\baselineskip} % 中文目录增加空行
+\addtocontents{toe}{\protect\vskip1\baselineskip} % 英文目录增加空行
+
+\ifxueweidoctor
+  \clearpage{\pagestyle{empty}\cleardoublepage}   % 清除目录后面空页的页眉和页脚
+\else%
+  \ifoneortwoside\clearpage{\pagestyle{empty}\cleardoublepage}\fi  % 清除目录后面空页的页眉和页脚
+\fi                                               %  第一章是否右开
+
+\mainmatter
+\defaultfont % 对应于小四的标准字号为12pt, 可以在正文中用此命令修改所需要字体的的大小
+
+\include{body/introduction}
+\include{body/conclusion}
+
+%参考文献
+\defaultfont
+\ifx\atempxetex\usewhat
+\bibliographystyle{chinesebst2005_UTF8}
+\else
+\bibliographystyle{chinesebst2005_UTF8}
+\fi
+\addcontentsline{toc}{chapter}{\hei \ReferenceCName}      % 参考文献加入到中文目录
+\addcontentsline{toe}{chapter}{\bfseries \xiaosi \ReferenceEName} % 参考文献加入到英文目录
+\addtolength{\bibsep}{-0.8 em} \nocite{*}
+\bibliography{reference/reference}
+
+\ifoneortwoside
+\newpage
+~~~\vspace{1em}
+\thispagestyle{empty}
+\fi
+
+%\addtocontents{fen}{\protect\vskip1\baselineskip}
+%\addtocontents{ten}{\protect\vskip1\baselineskip}
+%英文图形和表格索引里加入空白行，通常放在 \include{appendix/appA}% 附录A之前。
+%区分开正文和附录的图形和表格，一般没有这个必要。
+
+\include{appendix/publications}    % 所发文章
+\include{appendix/Resume}          % 个人简历
+\include{appendix/acknowledgements}% 致谢
+\include{appendix/Authorization}   % 承诺
+
+\clearpage
+\ifx\atempxetex\usewhat\else
+\end{CJK*}
+\fi
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
